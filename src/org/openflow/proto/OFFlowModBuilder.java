@@ -7,9 +7,6 @@ public class OFFlowModBuilder {
     private int cookie;
     private boolean cookieSet;
 
-    private int tableId;
-    private boolean tableIdSet;
-
     private OFMatch match;
 
     private int idleTimeOut;
@@ -34,12 +31,6 @@ public class OFFlowModBuilder {
     public OFFlowModBuilder setCookie(int i) {
         this.cookie = i;
         this.cookieSet = true;
-        return this;
-    }
-
-    public OFFlowModBuilder tableId(int i) {
-        this.tableId = i;
-        this.tableIdSet = true;
         return this;
     }
 

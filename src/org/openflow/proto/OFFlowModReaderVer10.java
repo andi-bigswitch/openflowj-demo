@@ -11,7 +11,7 @@ public class OFFlowModReaderVer10 implements OFMessageReader {
     private static final byte MY_VERSION = 1;
 
     private final OFMatchReaderVer10 matchReader = new OFMatchReaderVer10();
-    private final OFActionListReaderVer10 actionReader = new OFActionListReaderVer10();
+    private final OFActionListReaderVer10 actionListReader = new OFActionListReaderVer10();
 
     @Override
     public OFGenericMessage read(ChannelBuffer buf) {
