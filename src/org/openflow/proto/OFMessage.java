@@ -1,11 +1,9 @@
 package org.openflow.proto;
 
-public class OFMessage {
+public interface OFMessage {
+    public OFType getType();
 
+    public int getXid();
 
-    public OFType getType() {
-        return null;
-    }
-
-
+    public boolean isXidSet();
 }

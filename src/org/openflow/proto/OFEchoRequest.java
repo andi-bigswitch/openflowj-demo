@@ -1,15 +1,7 @@
 package org.openflow.proto;
 
-public class OFEchoRequest {
+public interface OFEchoRequest extends OFMessage {
 
-    public OFEchoReply reply() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public OFMessage createReply() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    public OFMessage createReply();
 
 }

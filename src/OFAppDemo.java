@@ -1,9 +1,9 @@
 import org.jboss.netty.buffer.ChannelBuffer;
-import org.openflow.proto.FlowModBuilder;
 import org.openflow.proto.FlowStat;
 import org.openflow.proto.OFActionFactory;
 import org.openflow.proto.OFFactory;
 import org.openflow.proto.OFFlowMod;
+import org.openflow.proto.OFFlowModBuilder;
 import org.openflow.proto.OFFlowStatsReply;
 import org.openflow.proto.OFFlowStatsRequest;
 import org.openflow.proto.OFGenericMessage;
@@ -57,6 +57,9 @@ public class OFAppDemo {
                 case FLOW_STATS_REPLY:
                     updateStats(message.asFlowStatsReply());
                     break;
+                case FLOW_MOD:
+                    throw new IllegalArgumentException(
+                            "WAT - a switch sending me a flow_mod?");
             }
 
             // every 10 secs or so
@@ -90,7 +93,7 @@ public class OFAppDemo {
         // alternatively:
         // FlowBuilders are mutable,t single threaded.
         // they are dirt cheap to construct
-        FlowModBuilder fb = messageFactory.createFlowModBuilder();
+        OFFlowModBuilder fb = messageFactory.createFlowModBuilder();
         fb.setCookie(123);
         fb.setMatch(outMatch);
         fb.addAction(messageFactory.actionOutput(10));

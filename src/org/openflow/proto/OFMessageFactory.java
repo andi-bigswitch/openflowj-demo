@@ -4,8 +4,10 @@ import org.jboss.netty.buffer.ChannelBuffer;
 
 public class OFMessageFactory {
 
-    public FlowModBuilder createFlowModBuilder() {
-        return new FlowModBuilder();
+    private static final byte MY_VERSION = 1;
+
+    public OFFlowModBuilder createFlowModBuilder() {
+        return new OFFlowModBuilder();
     }
 
     public OFAction actionOutput(int i) {
@@ -17,12 +19,21 @@ public class OFMessageFactory {
         return null;
     }
 
+    OFMessageReader[] readers = { new OFFlowModReaderVer10() };
+
     public OFGenericMessage readFrom(ChannelBuffer channelBuffer) {
-        // TODO Auto-generated method stub
-        return null;
+        byte version = channelBuffer.getByte(0);
+        if (version != MY_VERSION)
+            throw new IllegalArgumentException("Cannot support version " + version);
+        short type = channelBuffer.getUnsignedByte(1);
+
+        if (type >= readers.length)
+            throw new IllegalArgumentException("Unknown OpenFlow message type " + type);
+
+        return readers[type].read(channelBuffer);
     }
 
-    public FlowModBuilder createFlowDeleteBuilder() {
+    public OFFlowModBuilder createFlowDeleteBuilder() {
         // TODO Auto-generated method stub
         return null;
     }
