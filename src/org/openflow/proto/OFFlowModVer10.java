@@ -3,15 +3,17 @@ package org.openflow.proto;
 import java.util.Collections;
 import java.util.List;
 
+import org.openflow.proto.match.Match;
+
 class OFFlowModVer10 extends OFMessageBase implements OFFlowMod {
     private final long cookie;
-    private final OFMatch match;
+    private final Match match;
 
     private final int idleTimeOut;
     private final int outport;
     private final List<OFAction> actions;
 
-    OFFlowModVer10(int xid, long cookie, OFMatch match, int idleTimeOut, int inport,
+    OFFlowModVer10(int xid, long cookie, Match match, int idleTimeOut, int inport,
             List<OFAction> actions) {
         super(xid);
         this.cookie = cookie;
@@ -27,7 +29,7 @@ class OFFlowModVer10 extends OFMessageBase implements OFFlowMod {
             this.actions = Collections.emptyList();
     }
 
-    OFFlowModVer10(long cookie, OFMatch match, int idleTimeOut, int inport,
+    OFFlowModVer10(long cookie, Match match, int idleTimeOut, int inport,
             List<OFAction> actions) {
         super();
         this.cookie = cookie;
@@ -54,7 +56,7 @@ class OFFlowModVer10 extends OFMessageBase implements OFFlowMod {
      * @param inport
      * @param actions
      */
-    OFFlowModVer10(int cookie, OFMatch match, int idleTimeOut,
+    OFFlowModVer10(int cookie, Match match, int idleTimeOut,
             int inport, List<OFAction> actions) {
         super();
         this.cookie = cookie;
@@ -74,7 +76,7 @@ class OFFlowModVer10 extends OFMessageBase implements OFFlowMod {
         return cookie;
     }
 
-    public OFMatch getMatch() {
+    public Match getMatch() {
         return match;
     }
 

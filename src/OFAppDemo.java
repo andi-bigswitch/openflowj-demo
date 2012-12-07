@@ -1,3 +1,8 @@
+
+import static org.openflow.proto.match.MatchField.ETH_DST;
+import static org.openflow.proto.match.MatchField.IN_PORT;
+import static org.openflow.proto.match.MatchField.IPV6_DST;
+
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.openflow.proto.FlowStat;
 import org.openflow.proto.OFActionFactory;
@@ -7,12 +12,17 @@ import org.openflow.proto.OFFlowModBuilder;
 import org.openflow.proto.OFFlowStatsReply;
 import org.openflow.proto.OFFlowStatsRequest;
 import org.openflow.proto.OFGenericMessage;
-import org.openflow.proto.OFMatch;
-import org.openflow.proto.OFMatchFactory;
 import org.openflow.proto.OFMessage;
 import org.openflow.proto.OFMessageFactory;
 import org.openflow.proto.OFPacketIn;
 import org.openflow.proto.OFVersion;
+import org.openflow.proto.match.Match;
+import org.openflow.proto.match.MatchBuilder;
+import org.openflow.proto.match.OFMatchFactory;
+import org.openflow.proto.type.IPv6;
+import org.openflow.proto.type.IPv6Mask;
+import org.openflow.proto.type.MacAddressMask;
+import org.openflow.proto.type.OFPort;
 
 public class OFAppDemo {
 
@@ -76,12 +86,27 @@ public class OFAppDemo {
     }
 
     private void handlePacketIn(ChannelBuffer channelBuffer, OFPacketIn packetIn) {
+        MatchBuilder builder = matchFactory.createBuilder();
 
-        OFMatch inMatch = packetIn.getMatch();
+        if (builder.supportsField(IN_PORT)) {
+            builder.setField(IN_PORT, OFPort.of(12));
+        }
+
+        if (builder.supportsWildcards(ETH_DST)) {
+            builder.setMaskedMatch(ETH_DST,
+                    MacAddressMask.of("01:02:03:04:05:00", "ff:ff:ff:00:ff:00"));
+        }
+
+        if (builder.supportsWildcards(IPV6_DST)) {
+            builder.setMaskedMatch(IPV6_DST, IPv6Mask.of("00:01:02::/64"));
+        }
+
 
         // matches are immutable and could be reused / cached
         // this uses a one-shot convenience method from the matchFactory
-        OFMatch outMatch = matchFactory.forDlMatch(inMatch.getDlSrc(), inMatch.getDlDst());
+        Match outMatch = builder.getMatch();
+
+        IPv6 field = outMatch.getField(IPV6_DST);
 
         int cookie = 123;
 

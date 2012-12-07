@@ -3,11 +3,13 @@ package org.openflow.proto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openflow.proto.match.Match;
+
 public class OFFlowModBuilder {
     private int cookie;
     private boolean cookieSet;
 
-    private OFMatch match;
+    private Match match;
 
     private int idleTimeOut;
     private boolean idleTimeOutSet;
@@ -34,7 +36,7 @@ public class OFFlowModBuilder {
         return this;
     }
 
-    public OFFlowModBuilder setMatch(OFMatch match) {
+    public OFFlowModBuilder setMatch(Match match) {
         this.match = match;
         return this;
     }

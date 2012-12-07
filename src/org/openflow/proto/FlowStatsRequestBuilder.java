@@ -1,5 +1,7 @@
 package org.openflow.proto;
 
+import org.openflow.proto.match.Match;
+
 public class FlowStatsRequestBuilder {
 
     public FlowStatsRequestBuilder setOutPort(int i) {
@@ -7,7 +9,7 @@ public class FlowStatsRequestBuilder {
         return null;
     }
 
-    public FlowStatsRequestBuilder setMatch(OFMatch all) {
+    public FlowStatsRequestBuilder setMatch(Match all) {
         // TODO Auto-generated method stub
         return null;
     }

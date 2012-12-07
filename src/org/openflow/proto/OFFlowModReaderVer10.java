@@ -3,6 +3,7 @@ package org.openflow.proto;
 import java.util.List;
 
 import org.jboss.netty.buffer.ChannelBuffer;
+import org.openflow.proto.match.Match;
 
 public class OFFlowModReaderVer10 implements OFMessageReader {
 
@@ -29,7 +30,7 @@ public class OFFlowModReaderVer10 implements OFMessageReader {
             throw new IllegalArgumentException("Wrong length "+ len + " < 72");
 
         int xid = buf.getInt(4);
-        OFMatch match = matchReader.read(buf, 6);
+        Match match = matchReader.read(buf, 6);
         long cookie = buf.getInt(46);
 
         int idleTimeOut = buf.getUnsignedShort(48);

@@ -1,6 +1,8 @@
 package org.openflow.proto;
 
 import org.jboss.netty.buffer.ChannelBuffer;
+import org.openflow.proto.match.Match;
+import org.openflow.proto.match.MatchBuilder;
 
 public class OFMessageFactory {
 
@@ -14,7 +16,7 @@ public class OFMessageFactory {
         return new OFAction();
     }
 
-    public OFMatchBuilder createMatchBuilder() {
+    public MatchBuilder createMatchBuilder() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -38,12 +40,12 @@ public class OFMessageFactory {
         return null;
     }
 
-    public OFFlowMod createFlowAdd(int cookie, OFMatch outMatch, OFActionOutput ofActionOutput) {
+    public OFFlowMod createFlowAdd(int cookie, Match outMatch, OFActionOutput ofActionOutput) {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public OFFlowMod createFlowDelete(OFMatch all) {
+    public OFFlowMod createFlowDelete(Match all) {
         // TODO Auto-generated method stub
         return null;
     }

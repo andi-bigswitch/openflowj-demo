@@ -1,5 +1,7 @@
 package org.openflow.proto;
 
+import org.openflow.proto.match.OFMatchFactory;
+
 public class OFFactory {
 
     public static OFFactory forVersion(OFVersion of10) {
